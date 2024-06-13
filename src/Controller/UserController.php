@@ -26,6 +26,7 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+
         $user = $this->security->getUser();
 
         if (!$user) {
@@ -73,11 +74,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $user->setPassword('');
+
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
         $loggedInUser = $this->getUser();
 //
 //        if (!$this->isGranted('ROLE_ADMIN')) {
@@ -88,6 +91,15 @@ class UserController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $plainPassword = $form->get('password')->getData();
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $plainPassword
+            );
+            $user->setPassword($hashedPassword);
+
+            $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
