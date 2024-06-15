@@ -1,6 +1,61 @@
 body {
-    background-color: white;
-}
-h1 {
     font-family: 'Press Start 2P', cursive;
+}
+
+.btn{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+/*!*h1 {*!*/
+/*!*    font-family: 'Press Start 2P', cursive;*!*/
+/*!*}*!*/
+
+/*.accueil_container{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+/*.accueil-img {*/
+/*    width: 50%;*/
+/*    height: 50%;*/
+/*}*/
+/*.accueil-form{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+
+
+/*}*/
+/*.accueil {*/
+/*    display: flex;*/
+/*    justify-content: center; !* centers horizontally *!*/
+/*    align-items: center; !* centers vertically *!*/
+/*    flex-direction: column; !* stacks children vertically *!*/
+/*}*/
+
+
+.container {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
 }

@@ -1,15 +1,23 @@
 {{ form_start(form) }}
 
     {# Email Field #}
-    {{ form_label(form.email, 'Email') }}
+    {{ form_label(form.email, 'Email',
+        {'label_attr': {'class': 'm-3'}}
+    ) }}
     {{ form_errors(form.email) }}
-    {{ form_widget(form.email) }}
+    {{ form_widget(form.email,
+        {'attr': { 'class': 'form-control', 'autocomplete': 'email', 'required': true, 'autofocus': true }}
+    ) }}
 
     {# Password Field #}
-    {{ form_label(form.password, 'Password') }}
+    {{ form_label(form.password, 'Password',
+        {'label_attr': {'class': 'm-3'}}
+    ) }}
     {{ form_errors(form.password)}}
-    {{ form_widget(form.password) }}
+    {{ form_widget(form.password,
+        {'attr': { 'class': 'form-control', 'autocomplete': 'current-password', 'required': true }}
+    ) }}
 
-<button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn btn-lg btn-primary">{{ button_label|default('Save') }}</button>
 
 {{ form_end(form) }}
