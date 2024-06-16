@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -38,7 +39,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -53,10 +54,17 @@ class UserController extends AbstractController
             );
             $user->setPassword($hashedPassword);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $emailNewUser = $form->get('email')->getData();
+            $existingUser = $userRepository->findOneBy(['email' => $emailNewUser]);
+            if ($existingUser) {
+                $form->get('email')->addError(new FormError('User already exists'));
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('user/new.html.twig', [
