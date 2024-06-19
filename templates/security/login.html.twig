@@ -16,10 +16,10 @@
 
                 <form action="{{ path('app_login') }}" method="post">
 
-                    <label for="username" class="m-3">Email</label>
-                    <input type="email" value="{{ last_username }}" name="_username" id="username"
+                    <label for="username" class="m-3">Pseudo</label>
+                    <input type="text" value="{{ last_username }}" name="_username" id="username"
                            class="form-control"
-                           autocomplete="email" required autofocus>
+                           autocomplete="text" required autofocus>
 
                     <label for="password" class="m-3">Password</label>
                     <input type="password" name="_password" id="password" class="form-control"

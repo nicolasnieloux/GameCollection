@@ -53,9 +53,14 @@ class UserController extends AbstractController
                 $plainPassword
             );
             $user->setPassword($hashedPassword);
-
+            $pseudoNewUser = $form->get('pseudo')->getData();
+            $existingPseudo = $userRepository->findOneBy(['pseudo' => $pseudoNewUser]);
             $emailNewUser = $form->get('email')->getData();
             $existingUser = $userRepository->findOneBy(['email' => $emailNewUser]);
+
+            if ($existingPseudo) {
+                $form->get('pseudo')->addError(new FormError('Pseudo already exist'));
+            }
             if ($existingUser) {
                 $form->get('email')->addError(new FormError('User already exists'));
 

@@ -1,6 +1,14 @@
 {{ form_start(form) }}
 
-    {# Email Field #}
+    {{ form_label(form.pseudo, 'Pseudo',
+        {'label_attr': {'class': 'm-3'}}
+    ) }}
+    {{ form_errors(form.pseudo) }}
+
+    {{ form_widget(form.pseudo,
+        {'attr': { 'class': 'form-control', 'required': true, 'autofocus': true }}
+    ) }}
+
     {{ form_label(form.email, 'Email',
         {'label_attr': {'class': 'm-3'}}
     ) }}
@@ -9,11 +17,10 @@
         {'attr': { 'class': 'form-control', 'autocomplete': 'email', 'required': true, 'autofocus': true }}
     ) }}
 
-    {# Password Field #}
     {{ form_label(form.password, 'Password',
         {'label_attr': {'class': 'm-3'}}
     ) }}
-    {{ form_errors(form.password)}}
+    {{ form_errors(form.password) }}
     {{ form_widget(form.password,
         {'attr': { 'class': 'form-control', 'autocomplete': 'current-password', 'required': true }}
     ) }}
