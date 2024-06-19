@@ -61,7 +61,7 @@ class UserController extends AbstractController
             if ($existingPseudo) {
                 $form->get('pseudo')->addError(new FormError('Pseudo already exist'));
             }
-            if ($existingUser) {
+            elseif ($existingUser) {
                 $form->get('email')->addError(new FormError('User already exists'));
 
             } else {
