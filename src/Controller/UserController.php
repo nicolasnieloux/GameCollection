@@ -80,7 +80,13 @@ class UserController extends AbstractController
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
+
     {
+        $currentUser = $this->security->getUser();
+
+        if (!$currentUser || $currentUser->getId() !== $user->getId()) {
+            return $this->render('accessDenied.html.twig');
+            }
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -100,7 +106,7 @@ class UserController extends AbstractController
 //            throw $this->createAccessDeniedException();
 //        }
         if ($loggedInUser !== $user) {
-            throw $this->createAccessDeniedException();
+            return $this->render('accessDenied.html.twig');
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
