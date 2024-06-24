@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GamesCollection{% endblock %}
+
+{% block body %}
+    <h1>GamesCollection</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ games_collection.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ games_collection.name }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ games_collection.createdAt ? games_collection.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_games_collection_index') }}">back to list</a>
+
+    <a href="{{ path('app_games_collection_edit', {'id': games_collection.id}) }}">edit</a>
+
+    {{ include('games_collection/_delete_form.html.twig') }}
+{% endblock %}

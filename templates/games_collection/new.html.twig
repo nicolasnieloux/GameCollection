@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GamesCollection{% endblock %}
+
+{% block body %}
+    <h1>Create new GamesCollection</h1>
+
+    {{ include('games_collection/_form.html.twig') }}
+
+    <a href="{{ path('app_games_collection_index') }}">back to list</a>
+{% endblock %}
