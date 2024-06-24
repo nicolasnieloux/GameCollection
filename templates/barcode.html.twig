@@ -1,0 +1,45 @@
+<video id="webcam" autoplay></video>
+<button id="startButton">Start</button>
+<button id="stopButton">Stop</button>
+
+<script src="https://unpkg.com/@zxing/library@0.18.4/umd/index.min.js"></script>
+<script>
+    const codeReader = new ZXing.BrowserMultiFormatReader()
+    const video = document.getElementById('webcam')
+    const startButton = document.getElementById('startButton')
+    const stopButton = document.getElementById('stopButton')
+
+    const hdConstraints = {
+        video: { width: { exact: 1280 }, height: { exact: 720 } },
+    };
+
+    startButton.addEventListener('click', () => {
+        navigator.mediaDevices
+            .getUserMedia(hdConstraints)
+            .then((localMediaStream) => {
+                video.srcObject = localMediaStream;
+                codeReader.decodeFromVideoDevice(undefined, 'webcam', (result, err) => {
+                    if (result) {
+                        console.log(result.text);
+                        video.classList.add('detected');
+                    }
+                    if (err && !(err instanceof ZXing.NotFoundException)) {
+                        console.error(err);
+                        video.classList.remove('detected');
+                    }
+                });
+                console.log(`Started continuous decode from camera`);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
+
+    stopButton.addEventListener('click', () => {
+        codeReader.reset();
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.style.display = 'none';
+        video.classList.remove('detected');
+        console.log(`Stopped continuous decode from camera`);
+    });
+</script>
