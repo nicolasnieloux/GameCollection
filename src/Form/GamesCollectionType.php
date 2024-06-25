@@ -15,13 +15,14 @@ class GamesCollectionType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+//            ->add('createdAt', null, [
+//                'widget' => 'single_text',
+//
+//            ])
+//            ->add('user', EntityType::class, [
+//                'class' => User::class,
+//                'choice_label' => 'id',
+//            ])
         ;
     }
 

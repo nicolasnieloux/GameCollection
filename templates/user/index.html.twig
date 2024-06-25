@@ -4,16 +4,16 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>Liste des users</h1>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Pseudo</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Pseudo</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for user in users %}
@@ -35,5 +35,31 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <h1>Liste des collections de {{ user.pseudo }}</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Collection</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for collection in collection %}
+            <tr>
+                <td>{{ collection.id }}</td>
+                <td>{{ collection.name }}</td>
+                <td>
+                    <a href="{{ path('app_games_collection_show', {'id' : collection.id}) }}">show</a>
+                    <a href="{{ path('app_games_collection_edit', {'id' : collection.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_games_collection_new') }}">Add collection</a>
 {% endblock %}

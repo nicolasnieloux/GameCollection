@@ -1,4 +1,13 @@
 {{ form_start(form) }}
+
+   {{ form_label(form.name, 'Nom',
+       {'label_attr': {'class': 'm-3'}}
+   ) }}
+   {{ form_errors(form.name) }}
+    {{ form_widget(form.name,
+        {'attr': { 'class': 'form-control', 'required': true, 'autofocus': true }}
+    ) }}
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

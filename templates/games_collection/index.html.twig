@@ -8,18 +8,16 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>Name</th>
-                <th>CreatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for games_collection in games_collections %}
             <tr>
-                <td>{{ games_collection.id }}</td>
+
                 <td>{{ games_collection.name }}</td>
-                <td>{{ games_collection.createdAt ? games_collection.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_games_collection_show', {'id': games_collection.id}) }}">show</a>
                     <a href="{{ path('app_games_collection_edit', {'id': games_collection.id}) }}">edit</a>
@@ -33,5 +31,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_games_collection_new') }}">Create new</a>
+    <a href="{{ path('app_games_collection_new') }}">Nouvelle collection</a>
+    <a href="{{ path('app_user_index') }}"> profil</a>
 {% endblock %}
